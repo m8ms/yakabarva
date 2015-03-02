@@ -1,0 +1,32 @@
+########################################################
+# Mod rewrite
+########################################################
+RewriteEngine On
+Options All -Indexes
+
+RewriteBase /yakabarva/
+
+#pass-through static files
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)\.(css|js|jpg|png|ico|gif)$ $1.$2 [L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php/$1 [L]
+
+
+<Files *.*>
+    Order Deny,Allow
+    Deny from all
+</Files>
+
+<Files index.php>
+    Order Allow,Deny
+    Allow from all
+</Files>
+
+<Files ~ "\.(css|js|jpg|png|ico|gif)$">
+    Order Allow,Deny
+    Allow from all
+</Files>
